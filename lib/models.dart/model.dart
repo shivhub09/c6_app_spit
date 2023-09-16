@@ -1,44 +1,3 @@
-// class InputData {
-//   int period;
-//   int Car;
-//   int Bus;
-//   int Subway;
-//   int Airplane;
-//   int Intercity;
-//   int Electricity;
-//   int Natural;
-//   int Water;
-//   int Dairy;
-//   int Meat;
-//   int Fruit;
-//   int Wine;
-//   int Others;
-//   int Clothing;
-//   int Restaurant;
-//   int Hotel;
-
-//   // Add more fields as needed
-
-//   InputData({});
-
-//   // Create a factory method to deserialize from JSON
-//   factory InputData.fromJson(Map<String, dynamic> json) {
-//     return InputData(
-//       period: json['miles'] as int,
-//       // Add more fields here
-//     );
-//   }
-
-//   // Create a method to serialize to JSON
-//   Map<String, dynamic> toJson() {
-//     return {
-//       'period': period,
-//       // Add more fields here
-//     };
-//   }
-// }
-
-
 class InputData {
   int period;
   int Car;
@@ -75,7 +34,7 @@ class InputData {
     this.Others = 0,
     this.Clothing = 0,
     this.Restaurant = 0,
-    this.Hotel = 0,
+    this.Hotel = 0, 
   });
 
   // Create a factory method to deserialize from JSON

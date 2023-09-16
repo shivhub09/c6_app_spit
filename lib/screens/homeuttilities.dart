@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeUtils extends StatefulWidget {
-  const HomeUtils({super.key});
+  final List<int> transportationlist;
+  final int index;
+  const HomeUtils({required this.index, required this.transportationlist});
 
   @override
   State<HomeUtils> createState() => _HomeUtilsState();
@@ -11,6 +13,7 @@ class HomeUtils extends StatefulWidget {
 
 class _HomeUtilsState extends State<HomeUtils> {
   List<String> homeutils = ["Electricity", "Natural Gas", "Water"];
+  List<int> arraynumbers = [0, 0, 0];
   Set<int> selectedCardIndices = {};
 
   @override
@@ -133,10 +136,15 @@ class _HomeUtilsState extends State<HomeUtils> {
                             height: 50.0, // Adjust the height as needed
                             width: 250.0, // Adjust the width as needed
                             child: TextField(
+                              style: TextStyle(
+                                color: Colors
+                                    .white, // Change this to the desired text color
+                              ),
                               keyboardType: TextInputType.number,
                               onChanged: (value) {
                                 // Update the value for the current card
-                                cardValues[index] = int.tryParse(value) ?? 0;
+
+                                arraynumbers[index] = int.tryParse(value) ?? 0;
                               },
                               decoration: InputDecoration(
                                 labelText: 'In USD',
@@ -167,13 +175,27 @@ class _HomeUtilsState extends State<HomeUtils> {
               ),
             ),
           ),
-          Positioned(bottom: 10, left: 20, right: 20, child: gonxt())
+          Positioned(
+              bottom: 10,
+              left: 20,
+              right: 20,
+              child: gonxt(
+                index: widget.index,
+                transportationlist: widget.transportationlist,
+                arraynumber: arraynumbers,
+              ))
         ]));
   }
 }
 
 class gonxt extends StatelessWidget {
-  const gonxt({super.key});
+  final List<int> arraynumber;
+  final List<int> transportationlist;
+  final int index;
+  const gonxt(
+      {required this.arraynumber,
+      required this.index,
+      required this.transportationlist});
 
   @override
   Widget build(BuildContext context) {
@@ -181,8 +203,16 @@ class gonxt extends StatelessWidget {
       borderRadius: BorderRadius.circular(100),
       child: ElevatedButton(
         onPressed: () {
+          print(arraynumber);
+          print(transportationlist);
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => FoodClothing()));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => FoodClothing(
+                        index: this.index,
+                        transportationlist: this.transportationlist,
+                        homeutils: this.arraynumber,
+                      )));
         },
         style: const ButtonStyle(
           backgroundColor:

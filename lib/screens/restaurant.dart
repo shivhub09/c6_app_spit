@@ -1,8 +1,21 @@
+import 'package:c6/models.dart/model.dart';
+import 'package:c6/screens/homescreen.dart';
+import 'package:c6/screens/result.dart';
+import 'package:c6/services/provider_clas.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class restaurant extends StatefulWidget {
-  const restaurant({super.key});
+  final List<int> transportationlist;
+  final List<int> homeutils;
+  final int index;
+  final List<int> food;
+  const restaurant(
+      {required this.food,
+      required this.homeutils,
+      required this.index,
+      required this.transportationlist});
 
   @override
   State<restaurant> createState() => _restaurantState();
@@ -13,11 +26,15 @@ class _restaurantState extends State<restaurant> {
     "Restaurant",
     "Hotel",
   ];
+  List<int> arraynumbers = [0, 0];
   Set<int> selectedCardIndices = {};
 
   @override
   Widget build(BuildContext context) {
     List<int> cardValues = List<int>.filled(restaurant.length, 0);
+
+    final inputDataProvider = Provider.of<InputDataProvider>(context);
+
     return Scaffold(
         backgroundColor: const Color.fromRGBO(24, 23, 24, 10),
         body: Stack(children: [
@@ -54,7 +71,7 @@ class _restaurantState extends State<restaurant> {
                   ],
                 ),
                 Text(
-                  "Home Utilities",
+                  "Restaurant & Accommodation",
                   style: GoogleFonts.montserrat(color: Colors.grey.shade400),
                 ),
               ],
@@ -65,7 +82,7 @@ class _restaurantState extends State<restaurant> {
             top: 125,
             right: 20,
             child: Text(
-              "Home Utilities",
+              "Restaurant & Accommodation",
               style: GoogleFonts.montserrat(
                 color: Colors.white,
                 fontSize: 25,
@@ -76,7 +93,7 @@ class _restaurantState extends State<restaurant> {
           Positioned(
             left: 20,
             right: 20,
-            top: 140,
+            top: 165,
             child: SizedBox(
               height: 600,
               child: GridView.builder(
@@ -101,80 +118,99 @@ class _restaurantState extends State<restaurant> {
                         }
                       });
                     },
-                    child: Expanded(
-                      child: Column(
-                        children: [
-                          Container(
-                            height:
-                                75, // Adjust the height as needed (for example, 100)
-                            decoration: BoxDecoration(
-                              color: isSelected
-                                  ? Color.fromRGBO(61, 245, 135,
-                                      1) // Change the color for selected card
-                                  : Colors.white,
-                              borderRadius: BorderRadius.circular(20.0),
-                              border:
-                                  Border.all(color: Colors.black, width: 1.0),
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 75,
+                          decoration: BoxDecoration(
+                            color: isSelected
+                                ? Color.fromRGBO(61, 245, 135, 1)
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 1.0,
                             ),
-                            child: Center(
-                              child: Text(
-                                restaurant[index],
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              restaurant[index],
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                          SizedBox(
-                              height:
-                                  10), // Add spacing between the card and input field
-                          // Input field for numbers
-                          Container(
-                            height: 50.0, // Adjust the height as needed
-                            width: 250.0, // Adjust the width as needed
-                            child: TextField(
-                              keyboardType: TextInputType.number,
-                              onChanged: (value) {
-                                // Update the value for the current card
-                                cardValues[index] = int.tryParse(value) ?? 0;
-                              },
-                              decoration: InputDecoration(
-                                labelText: 'In USD',
-                                labelStyle:
-                                    GoogleFonts.montserrat(color: Colors.white),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color.fromRGBO(61, 245, 135,
-                                          1), // Border color when not selected
-                                      width: 2.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(20)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color.fromRGBO(61, 245, 135,
-                                          1), // Border color when not selected
-                                      width: 2.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(20)),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          height: 50.0,
+                          width: 250.0,
+                          child: TextField(
+                             style: TextStyle(
+    color: Colors.white, // Change this to the desired text color
+  ),
+                            keyboardType: TextInputType.number,
+                            onChanged: (value) {
+                              arraynumbers[index] = int.tryParse(value) ?? 0;
+                            },
+                            decoration: InputDecoration(
+                              labelText: 'In USD',
+                              labelStyle:
+                                  GoogleFonts.montserrat(color: Colors.white),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color.fromRGBO(61, 245, 135, 1),
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color.fromRGBO(61, 245, 135, 1),
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(20),
                               ),
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+                        )
+                      ],
                     ),
                   );
                 },
               ),
             ),
           ),
-          Positioned(bottom: 10, left: 20, right: 20, child: gonxt())
+          Positioned(
+              bottom: 10,
+              left: 20,
+              right: 20,
+              child: gonxt(
+                index: widget.index,
+                homeutils: widget.homeutils,
+                transportationlist: widget.transportationlist,
+                food: widget.food,
+                arraynumber: arraynumbers,
+              ))
         ]));
   }
 }
 
 class gonxt extends StatelessWidget {
-  const gonxt({super.key});
+  final List<int> arraynumber;
+  final List<int> homeutils;
+  final List<int> transportationlist;
+  final List<int> food;
+  final int index;
+  const gonxt(
+      {required this.homeutils,
+      required this.arraynumber,
+      required this.index,
+      required this.transportationlist,
+      required this.food});
 
   @override
   Widget build(BuildContext context) {
@@ -182,8 +218,22 @@ class gonxt extends StatelessWidget {
       borderRadius: BorderRadius.circular(100),
       child: ElevatedButton(
         onPressed: () {
+          print(this.arraynumber);
+          print(this.index);
+          print(this.homeutils);
+          print(this.transportationlist);
+          print(this.food);
+
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => restaurant()));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Result(
+                        index: this.index,
+                        food: this.food,
+                        homeutils: this.homeutils,
+                        restaurant: this.arraynumber,
+                        transportation: this.transportationlist,
+                      )));
         },
         style: const ButtonStyle(
           backgroundColor:
