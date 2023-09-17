@@ -24,10 +24,25 @@ class Result extends StatefulWidget {
 class _ResultState extends State<Result> {
   List<dynamic> carbonData = [];
   late Future<void> fetchDataFuture;
+  late String label;
   @override
   void initState() {
     super.initState();
     fetchDataFuture = fetchdata();
+    label = getLabelFromIndex(widget.index);
+  }
+
+  String getLabelFromIndex(int index) {
+    switch (index) {
+      case 0:
+        return "Day";
+      case 1:
+        return "Week";
+      case 2:
+        return "Month";
+      default:
+        return "Unknown";
+    }
   }
 
   bool _isLoading = true;
@@ -198,6 +213,26 @@ class _ResultState extends State<Result> {
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
+              ),
+              Row(
+                children: [
+                  Text(
+                    "For : ",
+                    style: GoogleFonts.montserrat(
+                      color: Color.fromRGBO(61, 245, 135, 1),
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    label,
+                    style: GoogleFonts.montserrat(
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
