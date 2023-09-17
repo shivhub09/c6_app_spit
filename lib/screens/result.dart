@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:c6/screens/restaurant.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -200,6 +199,7 @@ class _ResultState extends State<Result> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              Text()
             ],
           ),
           Expanded(

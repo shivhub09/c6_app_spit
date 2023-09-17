@@ -156,9 +156,8 @@ class gonxt extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> period = ["Day", "Week", "Month"];
-    String selectedPeriod = selectedPeriodIndex != -1
-        ? period[selectedPeriodIndex]
-        : "Select a period";
+    String selectedPeriod =
+        selectedPeriodIndex != -1 ? period[selectedPeriodIndex] : "";
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(100),
