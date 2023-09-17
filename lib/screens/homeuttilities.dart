@@ -21,6 +21,7 @@ class _HomeUtilsState extends State<HomeUtils> {
     List<int> cardValues = List<int>.filled(homeutils.length, 0);
 
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: const Color.fromRGBO(24, 23, 24, 10),
         body: Stack(children: [
           Positioned(
@@ -37,20 +38,12 @@ class _HomeUtilsState extends State<HomeUtils> {
               children: [
                 Row(
                   children: [
-                    Text(
-                      "C",
-                      style: GoogleFonts.montserrat(
-                        color: const Color.fromRGBO(61, 245, 135, 1),
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      "6",
-                      style: GoogleFonts.montserrat(
-                        color: Colors.white,
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold,
+                    Container(
+                      height: 75,
+                      width: 75,
+                      child: Image.asset(
+                        "images/logo.png",
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ],
@@ -147,7 +140,7 @@ class _HomeUtilsState extends State<HomeUtils> {
                                 arraynumbers[index] = int.tryParse(value) ?? 0;
                               },
                               decoration: InputDecoration(
-                                labelText: 'In USD',
+                                labelText: 'In INR',
                                 labelStyle:
                                     GoogleFonts.montserrat(color: Colors.white),
                                 enabledBorder: OutlineInputBorder(

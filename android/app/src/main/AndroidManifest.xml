@@ -1,4 +1,11 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.yourapp">
+
+    <!-- ... other manifest elements ... -->
+
+    <!-- Add the permission here -->
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+
     <application
         android:label="c6"
         android:name="${applicationName}"

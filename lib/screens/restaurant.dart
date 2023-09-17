@@ -36,6 +36,7 @@ class _restaurantState extends State<restaurant> {
     final inputDataProvider = Provider.of<InputDataProvider>(context);
 
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: const Color.fromRGBO(24, 23, 24, 10),
         body: Stack(children: [
           Positioned(
@@ -52,20 +53,12 @@ class _restaurantState extends State<restaurant> {
               children: [
                 Row(
                   children: [
-                    Text(
-                      "C",
-                      style: GoogleFonts.montserrat(
-                        color: const Color.fromRGBO(61, 245, 135, 1),
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      "6",
-                      style: GoogleFonts.montserrat(
-                        color: Colors.white,
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold,
+                    Container(
+                      height: 75,
+                      width: 75,
+                      child: Image.asset(
+                        "images/logo.png",
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ],
@@ -149,15 +142,16 @@ class _restaurantState extends State<restaurant> {
                           height: 50.0,
                           width: 250.0,
                           child: TextField(
-                             style: TextStyle(
-    color: Colors.white, // Change this to the desired text color
-  ),
+                            style: TextStyle(
+                              color: Colors
+                                  .white, // Change this to the desired text color
+                            ),
                             keyboardType: TextInputType.number,
                             onChanged: (value) {
                               arraynumbers[index] = int.tryParse(value) ?? 0;
                             },
                             decoration: InputDecoration(
-                              labelText: 'In USD',
+                              labelText: 'In INR',
                               labelStyle:
                                   GoogleFonts.montserrat(color: Colors.white),
                               enabledBorder: OutlineInputBorder(

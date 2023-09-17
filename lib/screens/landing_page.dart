@@ -25,26 +25,34 @@ class _LandingPageState extends State<LandingPage> {
           Positioned(
             top: 50,
             left: 20,
-            child: Row(
-              children: [
-                Text(
-                  "C",
-                  style: GoogleFonts.montserrat(
-                    color: const Color.fromRGBO(61, 245, 135, 1),
-                    fontSize: 50,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  "6",
-                  style: GoogleFonts.montserrat(
-                    color: Colors.white,
-                    fontSize: 50,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
+            child: Container(
+              height: 100,
+              width: 100,
+              child: Image.asset(
+                "images/logo.png",
+                fit: BoxFit.cover,
+              ),
             ),
+            // child: Row(
+            //   children: [
+            //     Text(
+            //       "C",
+            //       style: GoogleFonts.montserrat(
+            //         color: const Color.fromRGBO(61, 245, 135, 1),
+            //         fontSize: 50,
+            //         fontWeight: FontWeight.bold,
+            //       ),
+            //     ),
+            //     Text(
+            //       "6",
+            //       style: GoogleFonts.montserrat(
+            //         color: Colors.white,
+            //         fontSize: 50,
+            //         fontWeight: FontWeight.bold,
+            //       ),
+            //     ),
+            //   ],
+            // ),
           ),
 
           // brief text

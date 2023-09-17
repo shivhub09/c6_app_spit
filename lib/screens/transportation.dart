@@ -19,6 +19,7 @@ class Transportation extends StatefulWidget {
 class _TransportationState extends State<Transportation> {
   Set<int> selectedCardIndices = {};
   List<int> transportationvalues = [0, 0, 0, 0, 0];
+  Set<int> selectedTextFormFieldIndices = {};
   final transportationlist = ["Car", "Bus", "Subway", "Airplane", "Train"];
 
   @override
@@ -31,6 +32,7 @@ class _TransportationState extends State<Transportation> {
     final inputDataProvider = Provider.of<InputDataProvider>(context);
 
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: const Color.fromRGBO(24, 23, 24, 10),
         body: Stack(children: [
           Positioned(
@@ -47,20 +49,12 @@ class _TransportationState extends State<Transportation> {
               children: [
                 Row(
                   children: [
-                    Text(
-                      "C",
-                      style: GoogleFonts.montserrat(
-                        color: const Color.fromRGBO(61, 245, 135, 1),
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      "6",
-                      style: GoogleFonts.montserrat(
-                        color: Colors.white,
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold,
+                    Container(
+                      height: 75,
+                      width: 75,
+                      child: Image.asset(
+                        "images/logo.png",
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ],
@@ -99,16 +93,19 @@ class _TransportationState extends State<Transportation> {
                 ),
                 itemCount: transportationlist.length,
                 itemBuilder: (context, index) {
-                  final isSelected = selectedCardIndices.contains(index);
+                  // final isSelected = selectedCardIndices.contains(index);
+
+                  final isSelected =
+                      selectedTextFormFieldIndices.contains(index);
 
                   // Build each grid item
                   return GestureDetector(
                     onTap: () {
                       setState(() {
                         if (isSelected) {
-                          selectedCardIndices.remove(index);
+                          selectedTextFormFieldIndices.remove(index);
                         } else {
-                          selectedCardIndices.add(index);
+                          selectedTextFormFieldIndices.add(index);
                         }
                       });
                     },
@@ -160,7 +157,7 @@ class _TransportationState extends State<Transportation> {
                                     int.tryParse(value) ?? 0;
                               },
                               decoration: InputDecoration(
-                                labelText: 'In Miles',
+                                labelText: 'In KM',
                                 labelStyle:
                                     GoogleFonts.montserrat(color: Colors.white),
                                 enabledBorder: OutlineInputBorder(

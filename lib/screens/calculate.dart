@@ -22,6 +22,7 @@ class _CalculateState extends State<Calculate> {
   Widget build(BuildContext context) {
     List<String> period = ["Day", "Week", "Month"];
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: const Color.fromRGBO(24, 23, 24, 10),
       body: Stack(
         children: [
@@ -129,7 +130,10 @@ class _CalculateState extends State<Calculate> {
                 if (selectedPeriodIndex != -1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Transportation(index: selectedPeriodIndex,)),
+                    MaterialPageRoute(
+                        builder: (context) => Transportation(
+                              index: selectedPeriodIndex,
+                            )),
                   );
                 }
               },

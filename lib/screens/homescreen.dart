@@ -1,6 +1,10 @@
 import 'package:c6/screens/calculate.dart';
+import 'package:c6/screens/chatbot.dart';
+import 'package:c6/screens/pedo.dart';
+import 'package:c6/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pedometer/pedometer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,7 +30,19 @@ class _HomeScreenState extends State<HomeScreen> {
       "Restaurant & accommodation: Dining out and lodging generate carbon through services."
     ];
     return Scaffold(
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     Navigator.push(
+      //         context, MaterialPageRoute(builder: (context) => ChatScreen()));
+      //   },
+      //   child: Icon(
+      //     Icons.chat_bubble_outlined,
+      //     color: Colors.black,
+      //   ), // You can use any Icon you like
+      //   backgroundColor: Color.fromRGBO(61, 245, 135, 1),
+      // ),
       backgroundColor: const Color.fromRGBO(24, 23, 24, 10),
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           Positioned(
@@ -45,16 +61,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: const Color.fromRGBO(61, 245, 135, 1),
-                      ),
-                      child: const Icon(
-                        Icons.person,
-                        color: Colors.white,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Profile()));
+                      },
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: const Color.fromRGBO(61, 245, 135, 1),
+                        ),
+                        child: const Icon(
+                          Icons.person,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
 
@@ -152,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
           // button to calculate your carbon footprint
 
           Positioned(
-              top: 525,
+              top: 500,
               left: 10,
               right: 10,
               child: Row(
@@ -189,6 +211,47 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   calcbtn(),
+                ],
+              )),
+
+          Positioned(
+              top: 580,
+              left: 10,
+              right: 10,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Start your",
+                        style: GoogleFonts.montserrat(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        "Foot Count ",
+                        style: GoogleFonts.montserrat(
+                          color: Color.fromRGBO(61, 245, 135, 1),
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        "Now!!",
+                        style: GoogleFonts.montserrat(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  calcwalk(),
                 ],
               )),
 
@@ -234,6 +297,38 @@ class calcbtn extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(0, 22, 0, 22),
           child: Text(
             "Calculate Now!",
+            style: GoogleFonts.montserrat(
+              color: const Color.fromRGBO(24, 23, 24, 10),
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class calcwalk extends StatelessWidget {
+  const calcwalk({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(100),
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => PedometerApp()));
+        },
+        style: const ButtonStyle(
+          backgroundColor:
+              MaterialStatePropertyAll(Color.fromRGBO(61, 245, 135, 1)),
+        ),
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(0, 22, 0, 22),
+          child: Text(
+            "Start Walking!",
             style: GoogleFonts.montserrat(
               color: const Color.fromRGBO(24, 23, 24, 10),
               fontSize: 15,

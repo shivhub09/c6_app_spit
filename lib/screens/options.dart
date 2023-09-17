@@ -1,5 +1,6 @@
 import 'package:c6/screens/homescreen.dart';
 import 'package:c6/screens/register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,9 +12,14 @@ class Options extends StatefulWidget {
 }
 
 class _OptionsState extends State<Options> {
+  final TextEditingController _passwordEditingController =
+      TextEditingController();
+  final TextEditingController _emailEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: const Color.fromRGBO(24, 23, 24, 10),
       body: Stack(
         children: [
@@ -75,7 +81,75 @@ class _OptionsState extends State<Options> {
                     topRight: Radius.circular(50.0),
                   ),
                 ),
-                child: const Text("hi")),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(30, 30, 0, 10),
+                      child: Text(
+                        "Login",
+                        style: GoogleFonts.montserrat(
+                            fontSize: 45, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(10, 40, 10, 10),
+                      width: 350,
+                      height: 100,
+                      child: TextField(
+                        controller: _emailEditingController,
+                        style: GoogleFonts.montserrat(color: Colors.black),
+                        decoration: InputDecoration(
+                          labelText: 'Email',
+                          labelStyle:
+                              GoogleFonts.montserrat(color: Colors.black),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color.fromRGBO(61, 245, 135,
+                                    1), // Border color when not selected
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(20)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color.fromRGBO(61, 245, 135,
+                                    1), // Border color when not selected
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(20)),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                      width: 350,
+                      height: 100,
+                      child: TextField(
+                        controller: _passwordEditingController,
+                        style: GoogleFonts.montserrat(color: Colors.black),
+                        decoration: InputDecoration(
+                          labelText: 'Password',
+                          labelStyle:
+                              GoogleFonts.montserrat(color: Colors.black),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color.fromRGBO(61, 245, 135,
+                                    1), // Border color when not selected
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(20)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color.fromRGBO(61, 245, 135,
+                                    1), // Border color when not selected
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(20)),
+                        ),
+                      ),
+                    ),
+                  ],
+                )),
           ),
 
           const loginbtn(),
@@ -87,24 +161,30 @@ class _OptionsState extends State<Options> {
               right: 40,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Register()));
+                  FirebaseAuth.instance
+                      .signInWithEmailAndPassword(
+                          email: _emailEditingController.text,
+                          password: _passwordEditingController.text)
+                      .then((value) => {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomeScreen()))
+                          });
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "Don't have an account?",
-                      style: GoogleFonts.montserrat(
-                          color: const Color.fromRGBO(24, 23, 24, 10)),
-                    ),
-                    Text(" Create one!",
-                        style: GoogleFonts.montserrat(
-                          color: const Color.fromRGBO(61, 245, 135, 1),
-                          fontWeight: FontWeight.bold,
-                        ))
+                    // Text(
+                    //   "Don't have an account?",
+                    //   style: GoogleFonts.montserrat(
+                    //       color: const Color.fromRGBO(24, 23, 24, 10)),
+                    // ),
+                    // Text(" Create one!",
+                    //     style: GoogleFonts.montserrat(
+                    //       color: const Color.fromRGBO(61, 245, 135, 1),
+                    //       fontWeight: FontWeight.bold,
+                    //     ))
                   ],
                 ),
               ))

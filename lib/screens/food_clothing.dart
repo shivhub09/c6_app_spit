@@ -36,6 +36,7 @@ class _FoodClothingState extends State<FoodClothing> {
     List<int> cardValues = List<int>.filled(FoodClothing.length, 0);
     final inputDataProvider = Provider.of<InputDataProvider>(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: const Color.fromRGBO(24, 23, 24, 10),
       body: Stack(
         children: [
@@ -54,29 +55,13 @@ class _FoodClothingState extends State<FoodClothing> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Text(
-                      "C",
-                      style: GoogleFonts.montserrat(
-                        color: const Color.fromRGBO(61, 245, 135, 1),
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      "6",
-                      style: GoogleFonts.montserrat(
-                        color: Colors.white,
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                Text(
-                  "Food & Clothing",
-                  style: GoogleFonts.montserrat(color: Colors.grey.shade400),
+                Container(
+                  height: 75,
+                  width: 75,
+                  child: Image.asset(
+                    "images/logo.png",
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ],
             ),
@@ -175,7 +160,7 @@ class _FoodClothingState extends State<FoodClothing> {
                               ));
                             },
                             decoration: InputDecoration(
-                              labelText: 'In USD',
+                              labelText: 'In INR',
                               labelStyle:
                                   GoogleFonts.montserrat(color: Colors.white),
                               enabledBorder: OutlineInputBorder(
